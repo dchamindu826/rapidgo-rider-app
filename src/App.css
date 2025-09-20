@@ -21,7 +21,7 @@ button { cursor: pointer; font-family: inherit; }
 .error-message { color: var(--accent-primary); font-size: 0.9rem; margin-top: 0; }
 
 /* Main App Layout */
-.main-app-container { display: flex; flex-direction: column; height: 50vh; }
+.main-app-container { display: flex; flex-direction: column; height: 100vh; }
 .main-header { display: flex; justify-content: space-between; align-items: center; padding: 0rem 1rem; background-color: var(--bg-secondary); border-bottom: 1px solid var(--bg-tertiary); position: sticky; top: 0; z-index: 50; }
 .header-logo { height: 150px; }
 .live-clock { display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.9rem; }
