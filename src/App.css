@@ -1,22 +1,20 @@
-/* src/App.css (COMPLETE PRO REDESIGN) */
+/* src/App.css */
 
 :root {
-  --background-dark: #0F172A; /* Main background */
-  --primary: #1E2B3A; /* Card, Header backgrounds */
-  --secondary: #334155; /* Borders, secondary elements */
-  --text-light: #F1F5F9; /* Main text */
-  --text-muted: #94A3B8; /* Subtitles, icons */
+  --background-dark: #0F172A;
+  --primary: #1E2B3A;
+  --secondary: #334155;
+  --text-light: #F1F5F9;
+  --text-muted: #94A3B8;
   --accent-blue: #38BDF8;
-  --accent-pink: #ff9b05;
+  --accent-pink: #ff9b05; /* Food Orders */
   --accent-green: #34D399;
-  --accent-yellow: #FBBF24;
-  --accent-purple: #8B5CF6;
+  --accent-yellow: #FBBF24; /* Parcels */
+  --accent-purple: #8B5CF6; /* Pickups */
   --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -27,7 +25,7 @@ body {
 
 .app-wrapper {
   width: 100%;
-  max-width: 500px; /* Mobile-first width */
+  max-width: 500px;
   margin: 0 auto;
   background-color: var(--background-dark);
   min-height: 100vh;
@@ -47,35 +45,35 @@ body {
 /* --- Main App Layout --- */
 .main-app-container { display: flex; flex-direction: column; height: 100vh; }
 .main-header { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 1rem; background-color: var(--primary); border-bottom: 1px solid var(--secondary); position: sticky; top: 0; z-index: 100; }
-.header-logo { height: 100px; }
+.header-logo { height: 40px; }
+.rider-info { text-align: right; }
 .rider-info strong { display: block; }
 .rider-info span { font-size: 0.8rem; color: var(--text-muted); }
-
 .content-area { flex-grow: 1; overflow-y: auto; padding: 1rem 1rem 80px 1rem; }
 .page-content h2 { font-size: 1.5rem; margin: 0 0 1.5rem 0; padding-bottom: 0.5rem; border-bottom: 1px solid var(--secondary); }
 
 /* --- Bottom Nav --- */
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 500px; margin: 0 auto; display: flex; background-color: var(--primary); padding: 0.5rem 0; border-top: 1px solid var(--secondary); }
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 500px; margin: 0 auto; display: flex; background-color: var(--primary); padding: 0.5rem 0; border-top: 1px solid var(--secondary); z-index: 100;}
 .bottom-nav button { flex: 1; background: none; border: none; color: var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .bottom-nav button.active { color: var(--accent-blue); }
 .bottom-nav button span { font-size: 0.7rem; }
 
-/* --- Home Page Dashboard & Job Switcher --- */
+/* --- Home Page Dashboard --- */
 .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
 .summary-card { background-color: var(--primary); border-radius: 12px; padding: 1rem; }
+.summary-card.full-width { grid-column: 1 / -1; }
 .summary-card-title { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem; }
 .summary-card-value { font-size: 2rem; font-weight: 700; }
-.job-switcher { display: flex; background-color: var(--primary); border-radius: 12px; padding: 4px; margin-bottom: 1.5rem; }
-.job-switcher button { flex: 1; padding: 0.7rem; border: none; border-radius: 8px; background-color: transparent; color: var(--text-muted); font-weight: 600; font-size: 0.9rem; }
-.job-switcher button.active { background-color: var(--accent-blue); color: var(--background-dark); }
 
 /* --- Universal Job Card --- */
-.job-card { background-color: var(--primary); border-radius: 12px; padding: 1rem; margin-bottom: 1rem; border-left: 4px solid var(--accent-blue); }
-.job-card.type-request { border-left-color: var(--accent-purple); }
-.job-card.type-parcel { border-left-color: var(--accent-yellow); }
-.job-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+.job-card { background-color: var(--primary); border-radius: 12px; padding: 1rem; margin-bottom: 1rem; }
+.job-card.type-food { border-left: 4px solid var(--accent-pink); }
+.job-card.type-request { border-left: 4px solid var(--accent-purple); }
+.job-card.type-parcel { border-left: 4px solid var(--accent-yellow); }
+.job-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
 .job-header h3 { margin: 0; font-size: 1.1rem; }
-.job-header .job-type { font-size: 0.7rem; font-weight: 600; padding: 4px 8px; border-radius: 20px; text-transform: uppercase; }
+.job-header .job-type { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
+.job-header .job-type.type-food { background-color: var(--accent-pink); color: white; }
 .job-header .job-type.type-request { background-color: var(--accent-purple); color: white; }
 .job-header .job-type.type-parcel { background-color: var(--accent-yellow); color: var(--background-dark); }
 .job-details { display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.9rem; }
@@ -102,41 +100,10 @@ body {
 .logout-btn { background-color: var(--accent-pink); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; margin-top: 1rem; font-weight: bold; width: 100%; }
 
 /* --- NEW MODAL STYLES --- */
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 1rem;
-}
-.modal-content {
-  background-color: var(--primary);
-  border-radius: 16px;
-  padding: 1.5rem;
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  border-top: 4px solid var(--accent-blue);
-}
+.modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 1rem; }
+.modal-content { background-color: var(--primary); border-radius: 16px; padding: 1.5rem; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 1rem; border-top: 4px solid var(--accent-blue); }
 .modal-content h3 { margin: 0; }
-.modal-select, .modal-content input, .modal-content textarea {
-  width: 100%;
-  padding: 0.8rem;
-  border-radius: 8px;
-  background-color: var(--background-dark);
-  color: var(--text-light);
-  border: 1px solid var(--secondary);
-  font-size: 1rem;
-  font-family: inherit;
-}
+.modal-select, .modal-content input, .modal-content textarea { width: 100%; padding: 0.8rem; border-radius: 8px; background-color: var(--background-dark); color: var(--text-light); border: 1px solid var(--secondary); font-size: 1rem; font-family: inherit; }
 .modal-actions { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem; }
 .modal-actions button { padding: 0.6rem 1.2rem; border: none; border-radius: 8px; font-weight: 600; }
 .btn-secondary { background-color: var(--secondary); color: var(--text-light); }
