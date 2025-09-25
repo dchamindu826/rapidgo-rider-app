@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import client from './sanityClient';
 import './App.css';
 import { Home, History, User as UserIcon, Phone, MapPin, Truck, CheckCircle, XCircle, Package, ArrowUpCircle, LogOut, Utensils, RefreshCw } from 'lucide-react';
@@ -161,9 +161,43 @@ const MainApp = ({ rider, onLogout }) => {
 export default function App() {
     const [loggedInRider, setLoggedInRider] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const logoutTimerId = useRef(null);
+
+    const handleLogout = useCallback(() => {
+        sessionStorage.removeItem('rider');
+        setLoggedInRider(null);
+        if (logoutTimerId.current) {
+            clearTimeout(logoutTimerId.current);
+        }
+    }, []);
+
+    const resetTimer = useCallback(() => {
+        if (logoutTimerId.current) {
+            clearTimeout(logoutTimerId.current);
+        }
+        logoutTimerId.current = setTimeout(() => {
+            alert("You have been logged out due to 5 minutes of inactivity.");
+            handleLogout();
+        }, 5 * 60 * 1000);
+    }, [handleLogout]);
+
+    useEffect(() => {
+        if (loggedInRider) {
+            const events = ['mousemove', 'keydown', 'click', 'scroll'];
+            events.forEach(event => window.addEventListener(event, resetTimer));
+            resetTimer();
+
+            return () => {
+                events.forEach(event => window.removeEventListener(event, resetTimer));
+                if (logoutTimerId.current) {
+                    clearTimeout(logoutTimerId.current);
+                }
+            };
+        }
+    }, [loggedInRider, resetTimer]);
 
     useEffect(() => { 
-        const savedRider = localStorage.getItem('rider'); 
+        const savedRider = sessionStorage.getItem('rider'); 
         if (savedRider) {
             setLoggedInRider(JSON.parse(savedRider));
         }
@@ -171,13 +205,8 @@ export default function App() {
     }, []);
 
     const handleLoginSuccess = (rider) => { 
-        localStorage.setItem('rider', JSON.stringify(rider)); 
+        sessionStorage.setItem('rider', JSON.stringify(rider)); 
         setLoggedInRider(rider); 
-    };
-    
-    const handleLogout = () => { 
-        localStorage.removeItem('rider'); 
-        setLoggedInRider(null); 
     };
 
     if (isLoading) {
